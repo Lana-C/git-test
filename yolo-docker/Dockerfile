@@ -32,6 +32,7 @@ RUN cd "/" && \
 
 ADD yolov2.weights /darkflow/bin
 ADD YOLO_test.ipynb /darkflow
+ADD yolo.py /darkflow
 
 # Make darkflow the working directory when image is run 
 
