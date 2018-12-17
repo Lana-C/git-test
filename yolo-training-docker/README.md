@@ -1,3 +1,5 @@
+*NOTE: Training as described below runs successfully on a local machine, however wen run within the docker container the tfnet.train() command gets stuck without outputing any result (cause unknown) - it could be OOM error - needs to be checked on other machine*
+
 # YOLO Training - Docker image
 
 Provided Dockerfile can be used to build a Docker image for training of YOLO object detection algorithm using [darkflow](https://github.com/thtrieu/darkflow) implementation. It is based on the tensorflow image. 
