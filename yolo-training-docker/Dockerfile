@@ -17,23 +17,22 @@ RUN pip install cython
 RUN pip install opencv-python
 
 # Clone the darkflow git repository and install
-# Create additional directories in darkflow directory: bin -> holds the weights for the model, data -> holds input images to be labeled, results -> holds the model output (labeled images)
+# Create additional directory in darkflow directory: bin -> holds the weights for the model
 
 RUN cd "/" && \
 	git clone https://github.com/thtrieu/darkflow.git &&\
 	cd darkflow && \
 	python3 setup.py build_ext --inplace && \
 	mkdir bin && \
-	mkdir data && \
-	mkdir results && \
 	cd "/"
 
-# Add weights file and the sample notebook to run object detection to the darkflow folder
+# Add congifuration, labels and weights folder as well as sample notebook and python script for training to the darkflow folder
 
-ADD wgt/ /darkflow/bin
-ADD nbs/ /darkflow
 ADD cfg/ /darkflow/cfg
 ADD lbl/ /darkflow
+ADD wgt/ /darkflow/bin
+ADD data /darkflow
+ADD YOLO_training_test.ipynb /darkflow
 ADD yolo_training_test.py /darkflow
 
 # Make darkflow the working directory when image is run 
