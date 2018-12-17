@@ -1,4 +1,4 @@
-*NOTE: Training as described below runs successfully on a local machine, however wen run within the docker container the tfnet.train() command gets stuck without outputing any result (cause unknown) - it could be OOM error - needs to be checked on other machine*
+*NOTE: Training as described below runs successfully on a local machine, however when run within the docker container the tfnet.train() command gets stuck without outputing any result (cause unknown) - it could be OOM error - needs to be checked on other machine*
 
 # YOLO Training - Docker image
 
