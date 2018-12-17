@@ -41,7 +41,8 @@ set in `.cfg` file). In our case, we will create a custom labels file with 3 lab
 
 ### Build the Docker image
 To build the image, add
-* `cfg/` folder with the configuration - using `yolov2_new.weights` as example
+* `cfg/` folder with the configuration - using `yolov2_new.cfg` as example
+* `lbl/` folder with the labels `.txt` file
 * `wgt/` folder with weights - using `yolov2.weights` as example (download [here](https://pjreddie.com/media/files/yolov2.weights))
 * `data/` folder with images and annotations
 * `YOLO_training_test.ipynb` sample Jupyter notebook for interactive execution of training
