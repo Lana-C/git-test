@@ -1,4 +1,4 @@
-*NOTE: Training as described below runs successfully on a local machine, however when run within the docker container the tfnet.train() command gets stuck without outputing any result (cause unknown) - it could be OOM error - needs to be checked on other machine*
+*NOTE: Training as described below runs successfully in Anaconda environment on a local machine (HP Elitebook 745 G4, 16 GB RAM, AMD Pro) , however when run within the docker container (using Docker for Windows) the tfnet.train() command gets stuck without outputing any result (no error message shown) - should be checked on other machine with possibly more advanced configuration*
 
 # YOLO Training - Docker image
 
@@ -7,7 +7,7 @@ Provided Dockerfile can be used to build a Docker image for training of YOLO obj
 ### Training setup
 Setting up training on a new annotated dataset involves several preparation steps (detailed instructions can also be found in the darkflow repository). Here we assume that we are initializing training of the CNN from existing configurations and pre-trained weights available [here](https://pjreddie.com/darknet/yolo/).
 
-1.  If needed, depending on the number of classes that should be trained for, existing configuration files (.cfg) should be adjusted as per instructions in the darkflow repository: make a copy of the original `.cfg` file you choose and change classes in the [region] layer (the last layer) to the number of classes you are going to train for. In our example, we are going to use the `yolov2.cfg` to create  `yolov2_new.cfg` and set classes to 3.
+1.  If needed, depending on the number of classes that should be trained for, one of existing configuration files provided in the darkflow [repo](https://github.com/thtrieu/darkflow/tree/master/cfg) or [here](https://pjreddie.com/darknet/yolo/) should be adjusted as per instructions in the darkflow repository: make a copy of the original `.cfg` file you choose and change classes in the [region] layer (the last layer) to the number of classes you are going to train for. In our example, we are going to use the `yolov2.cfg` to create  `yolov2_new.cfg` and set classes to 3.
     
     ```python
     ...
@@ -34,12 +34,14 @@ Setting up training on a new annotated dataset involves several preparation step
     activation=linear    
     ...
     ```
-    Save the `.cfg` file in the `cfg/` folder.
+    Save the new `.cfg` file in the `cfg/` folder which will be used in building the docker image.
     
 2.  Change `labels.txt` to include the label(s) you want to train on (number of labels should be the same as the number of classes you
 set in `.cfg` file). In our case, we will create a custom labels file with 3 labels which can then be specified in the options for training. Save the labels file in the `lbl/` folder. 
 
-3. Images and annotations to be trained on should be saved in the `data/` folder under `data/images` and `data/annotations`. For the example training run we use the images (only 2 (!) so disregard the results) and annotations provided in the darkflow repository under `darkflow/test/training/images/` and `darkflow/test/training/annotations/`.
+3. Images and annotations to be trained on should be saved in the `data/` folder under `data/images` and `data/annotations`. With large datasets it would probably be best to bind mount the `data/` folder to the `darkflow/data` folder in the container when running the container. 
+
+For the example training run, we use the images and annotations provided in the darkflow repository under `darkflow/test/training/images/` and `darkflow/test/training/annotations/`(only 2 (!) so disregard the results).
 
 ### Build the Docker image
 To build the image, add
