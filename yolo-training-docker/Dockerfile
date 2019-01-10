@@ -5,7 +5,6 @@
 FROM tensorflow/tensorflow:latest-py3  
 
 # Install other dependencies
-
 RUN apt-get update && apt-get install -y \
 	git \
 	wget \
@@ -17,23 +16,26 @@ RUN pip install cython
 RUN pip install opencv-python
 
 # Clone the darkflow git repository and install
-# Create additional directory in darkflow directory: bin -> holds the weights for the model
+# Create additional directories in darkflow directory: bin -> holds the weights for the model, data -> holds input images and annotations
 
 RUN cd "/" && \
 	git clone https://github.com/thtrieu/darkflow.git &&\
 	cd darkflow && \
 	python3 setup.py build_ext --inplace && \
 	mkdir bin && \
+	mkdir data && \
 	cd "/"
 
-# Add congifuration, labels and weights folder as well as sample notebook and python script for training to the darkflow folder
+# Add configuration, labels and weights folder as well as sample notebook and python script for training to the darkflow folder
 
 ADD cfg/ /darkflow/cfg
 ADD lbl/ /darkflow
 ADD wgt/ /darkflow/bin
-ADD data /darkflow
 ADD YOLO_training_test.ipynb /darkflow
 ADD yolo_training_test.py /darkflow
+
+# Add checkkpoint folder
+RUN mkdir /darkflow/ckpt
 
 # Make darkflow the working directory when image is run 
 
