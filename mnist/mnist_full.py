@@ -110,7 +110,7 @@ def mnist_model(learning_rate, n_epochs, batch_size):
     sess.run(tf.global_variables_initializer())
     
     # Initiate writer for tensorboard and add current graph
-    writer = tf.summary.FileWriter(LOGDIR + "tf_log/" + hparam)
+    writer = tf.summary.FileWriter(LOGDIR + "tf_logs/" + hparam)
     writer.add_graph(sess.graph)
     
     # Train the model and save results
@@ -135,7 +135,7 @@ def main():
     mnist_model(learning_rate, n_epochs, batch_size)
 
     print('Done training!')
-    print('Run `tensorboard --logdir=%stf_log` to see the results.' % LOGDIR)
+    print('Run `tensorboard --logdir=%stf_logs` to see the results.' % LOGDIR)
     print('Checkpoints are located in %sckpt' % LOGDIR)
 
 
