@@ -8,14 +8,6 @@ FROM tensorflow/tensorflow:latest-gpu-py3
 
 # Install other dependencies
 RUN apt-get update && apt-get install -y \
-	git \
-	wget \
-	libsm6 \
-	libxext6 \
-	libxrender-dev
-
-RUN pip install cython
-RUN pip install opencv-python
 RUN pip install keras
 
 RUN cd "/" && \
@@ -29,7 +21,6 @@ RUN cd "/" && \
 ADD mnist_full.py /mnist
 
 WORKDIR /mnist 
-
 
 
 
